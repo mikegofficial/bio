@@ -358,37 +358,25 @@
             margin-top: 0.85rem;
             padding-top: 0.7rem;
             border-top: 1px dashed var(--border-hairline);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.75rem;
             font-family: var(--font-mono);
             font-size: 0.7rem;
             color: var(--text-muted);
             min-height: 1.3rem;
-        }
-
-        .field-readout span:last-child {
-            flex-shrink: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         #readout-text {
             transition: opacity 0.15s ease;
         }
 
-        /* Section Divider */
-        .section-label {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.75rem;
-            padding: 0 0.2rem;
+        /* Subtle Section Divider */
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background-color: var(--border-hairline);
+            margin: 1.35rem 0 1.15rem;
         }
 
         /* Link Buttons List */
@@ -669,15 +657,11 @@
                 </p>
                 <div class="field-readout" aria-live="polite">
                     <span id="readout-text">SPEC: MK2 SYNCRO // LAKE TRAVIS // ATX</span>
-                    <span>[05 LINKS]</span>
                 </div>
             </section>
 
-            <!-- Directory Links -->
-            <div class="section-label">
-                <span>Directory</span>
-                <span>External ↗</span>
-            </div>
+            <!-- Subtle Divider -->
+            <hr class="section-divider" aria-hidden="true">
 
             <nav class="links-list" aria-label="Social and profile links">
                 <!-- Link 1: LinkedIn -->
