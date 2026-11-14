@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michael Gnagy — @mikegofficial</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXFE3M341Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DXFE3M341Z');
+    </script>
+
+    <!-- Early theme init to match browser preference immediately without FOUC -->
+    <script>
+      (function() {
+        var savedTheme = localStorage.getItem('mkg-theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
     <meta name="description" content="Product Manager at Google in Austin, TX. Former founder (acquired by Google in 2019). Pickleball, Lake Travis efoiling, '92 VW Golf Country, and Jellybones.">
     <meta property="og:title" content="Michael Gnagy — @mikegofficial">
     <meta property="og:description" content="Product Manager at Google in Austin, TX. Former founder, pickleball player, Lake Travis efoiler, and '92 Golf Country enthusiast.">
@@ -792,7 +812,14 @@
                 themeLabel.textContent = theme === 'dark' ? 'DAYLIGHT' : 'NIGHT DRIVE';
             }
 
-            applyTheme(initialTheme);
+            // Live listener if the user changes system theme while page is open (unless manually overridden)
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+                    if (!localStorage.getItem('mkg-theme')) {
+                        applyTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
 
             toggleBtn.addEventListener('click', function () {
                 const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -800,6 +827,26 @@
                 try {
                     localStorage.setItem('mkg-theme', nextTheme);
                 } catch (e) {}
+
+                if (typeof gtag === 'function') {
+                    gtag('event', 'toggle_theme', {
+                        event_category: 'appearance',
+                        event_label: nextTheme
+                    });
+                }
+            });
+
+            // Track directory link clicks
+            document.querySelectorAll('.link-card').forEach(function (card) {
+                card.addEventListener('click', function () {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'click_directory_link', {
+                            event_category: 'engagement',
+                            event_label: card.id || card.href,
+                            link_url: card.href
+                        });
+                    }
+                });
             });
 
             // Interactive field readout for bio highlights
