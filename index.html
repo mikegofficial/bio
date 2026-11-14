@@ -1,64 +1,788 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michael Gnagy</title>
-    <!-- Use Tailwind CSS from CDN for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Michael Gnagy — @mikegofficial</title>
+    <meta name="description" content="Product Manager at Google in Austin, TX. Former founder (acquired by Google in 2019). Pickleball, Lake Travis efoiling, '92 VW Golf Country, and Jellybones.">
+    <meta property="og:title" content="Michael Gnagy — @mikegofficial">
+    <meta property="og:description" content="Product Manager at Google in Austin, TX. Former founder, pickleball player, Lake Travis efoiler, and '92 Golf Country enthusiast.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mikegofficial.xyz">
+    <meta property="og:image" content="https://0.gravatar.com/avatar/ef48a6fb75f05aeb8b3b414408a5cde7c616324c2dcf5b2f2b37e2cb375dd282?s=256">
+
+    <!-- Favicons present in repository -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Google Fonts: Plus Jakarta Sans + Space Grotesk + IBM Plex Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            /* Austin Limestone & 1992 Retro-Tech Palette (Light) */
+            --bg-canvas: hsl(38, 35%, 93%);
+            --bg-card: hsl(40, 42%, 98%);
+            --bg-surface: hsl(37, 28%, 90%);
+            --bg-link: hsl(40, 50%, 99%);
+            --bg-link-hover: hsl(40, 60%, 100%);
+            
+            --text-primary: hsl(160, 18%, 13%);
+            --text-secondary: hsl(160, 10%, 34%);
+            --text-muted: hsl(160, 8%, 48%);
+            
+            /* Nods to Lake Travis Teal, Austin Terracotta, '92 Montana Green & Pickleball Gold */
+            --accent-primary: hsl(174, 48%, 26%);     /* Lake Travis / '92 Golf Country Montana Green */
+            --accent-terracotta: hsl(14, 68%, 52%);   /* Austin Sunset Terracotta */
+            --accent-gold: hsl(43, 82%, 48%);         /* Pickleball / Sun Gold */
+            --accent-soft: hsla(174, 48%, 26%, 0.08);
+            
+            --border-hairline: hsla(160, 18%, 13%, 0.14);
+            --border-strong: hsla(160, 18%, 13%, 0.85);
+            
+            --shadow-card: 
+                0 1px 0 0 hsla(40, 100%, 100%, 0.8) inset,
+                0 20px 40px -15px hsla(30, 25%, 15%, 0.09),
+                0 4px 12px -2px hsla(30, 25%, 15%, 0.05);
+            --shadow-link: 0 2px 0 0 hsla(160, 18%, 13%, 0.08);
+            --shadow-link-hover: 0 4px 0 0 var(--accent-primary);
+
+            --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            /* Night Drive on Lake Travis Palette (Dark) */
+            --bg-canvas: hsl(170, 18%, 9%);
+            --bg-card: hsl(170, 16%, 13%);
+            --bg-surface: hsl(170, 15%, 17%);
+            --bg-link: hsl(170, 15%, 15%);
+            --bg-link-hover: hsl(170, 16%, 19%);
+            
+            --text-primary: hsl(40, 30%, 94%);
+            --text-secondary: hsl(38, 16%, 72%);
+            --text-muted: hsl(38, 10%, 52%);
+            
+            --accent-primary: hsl(168, 55%, 52%);
+            --accent-terracotta: hsl(16, 80%, 62%);
+            --accent-gold: hsl(45, 90%, 58%);
+            --accent-soft: hsla(168, 55%, 52%, 0.12);
+            
+            --border-hairline: hsla(40, 30%, 94%, 0.12);
+            --border-strong: hsla(40, 30%, 94%, 0.32);
+            
+            --shadow-card: 
+                0 1px 0 0 hsla(40, 30%, 94%, 0.07) inset,
+                0 24px 48px -12px hsla(0, 0%, 0%, 0.55);
+            --shadow-link: 0 2px 0 0 hsla(0, 0%, 0%, 0.35);
+            --shadow-link-hover: 0 4px 0 0 var(--accent-primary);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
         body {
-            font-family: 'Fira Code', monospace;
-            /* Vaporwave gradient background */
-            background-image: linear-gradient(to right, #4b0082 0%, #1a1a40 100%);
+            font-family: var(--font-sans);
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.25rem;
+            position: relative;
+            transition: background-color 0.25s ease, color 0.25s ease;
+            overflow-x: hidden;
+        }
+
+        /* Subtle warm ambient wash + tactile paper grain */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 18% 15%, hsla(174, 48%, 35%, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 85% 82%, hsla(14, 68%, 52%, 0.07) 0%, transparent 45%);
+            z-index: 0;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.032;
+            z-index: 1;
+        }
+
+        /* Main Field Chassis Card */
+        .bio-chassis {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 460px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-hairline);
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        /* Top Retro-Tech Telemetry Strip */
+        .telemetry-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.35rem;
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-hairline);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .telemetry-coords {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .telemetry-marker {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 2px;
+            background-color: var(--accent-terracotta);
+        }
+
+        .theme-switch {
+            appearance: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-hairline);
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0.28rem 0.6rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.38rem;
+            transition: all 0.15s ease;
+        }
+
+        .theme-switch:hover {
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+
+        .theme-switch:focus-visible {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        .theme-switch svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* Inner Content Container */
+        .chassis-body {
+            padding: 2rem 1.75rem 1.75rem;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar-frame {
+            position: relative;
+            flex-shrink: 0;
+            width: 84px;
+            height: 84px;
+            border-radius: 20px;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-terracotta));
+            box-shadow: 0 8px 20px -6px hsla(174, 48%, 20%, 0.25);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 17px;
+            display: block;
+            background-color: var(--bg-surface);
+        }
+
+        .profile-titles {
+            min-width: 0;
+        }
+
+        .profile-name {
+            font-family: var(--font-display);
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-handle-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .profile-handle {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--accent-primary);
+            font-weight: 500;
+        }
+
+        .profile-role-tag {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            padding: 0.12rem 0.45rem;
+            border-radius: 4px;
+            background-color: var(--accent-soft);
+            color: var(--accent-primary);
+            font-weight: 500;
+        }
+
+        /* Editorial Bio Section */
+        .bio-box {
+            position: relative;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-hairline);
+            border-radius: 16px;
+            padding: 1.15rem 1.25rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .bio-copy {
+            font-size: 0.94rem;
+            line-height: 1.68;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Interactive Easter-Egg Highlights inside Bio */
+        .bio-token {
+            color: var(--text-primary);
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: hsla(174, 48%, 35%, 0.35);
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 3px;
+            cursor: default;
+            transition: color 0.15s ease, text-decoration-color 0.15s ease, background-color 0.15s ease;
+            border-radius: 4px;
+            padding: 0 2px;
+            margin: 0 -2px;
+        }
+
+        .bio-token:hover {
+            color: var(--accent-primary);
+            text-decoration-color: var(--accent-terracotta);
+            background-color: var(--accent-soft);
+        }
+
+        /* Subtle Status Readout Bar under Bio */
+        .field-readout {
+            margin-top: 0.85rem;
+            padding-top: 0.7rem;
+            border-top: 1px dashed var(--border-hairline);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            min-height: 1.3rem;
+        }
+
+        #readout-text {
+            transition: opacity 0.15s ease;
+        }
+
+        /* Section Divider */
+        .section-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            padding: 0 0.2rem;
+        }
+
+        /* Link Buttons List */
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.9rem 1.05rem;
+            background-color: var(--bg-link);
+            border: 1px solid var(--border-hairline);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-link);
+            transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.18s ease,
+                        background-color 0.18s ease,
+                        box-shadow 0.18s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-2px);
+            background-color: var(--bg-link-hover);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-link-hover);
+        }
+
+        .link-card:active {
+            transform: translateY(0);
+        }
+
+        .link-card:focus-visible {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        .link-card-left {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            min-width: 0;
+        }
+
+        .link-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-hairline);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent-primary);
+            transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+        }
+
+        .link-card:hover .link-icon-box {
+            background-color: var(--accent-primary);
+            color: var(--bg-card);
+            border-color: var(--accent-primary);
+            transform: rotate(-3deg) scale(1.03);
+        }
+
+        .link-icon-box svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Per-link subtle accent personality on hover */
+        .link-card[data-channel="lastfm"]:hover .link-icon-box {
+            background-color: var(--accent-terracotta);
+            border-color: var(--accent-terracotta);
+        }
+        .link-card[data-channel="lastfm"]:hover {
+            border-color: var(--accent-terracotta);
+            box-shadow: 0 4px 0 0 var(--accent-terracotta);
+        }
+
+        .link-card[data-channel="dupr"]:hover .link-icon-box {
+            background-color: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: hsl(160, 18%, 10%);
+        }
+        .link-card[data-channel="dupr"]:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 4px 0 0 var(--accent-gold);
+        }
+
+        .link-meta {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .link-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .link-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 0.12rem;
+        }
+
+        .link-arrow {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            transition: transform 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+        }
+
+        .link-card:hover .link-arrow {
+            color: var(--text-primary);
+            transform: translate(2px, -2px);
+        }
+
+        .link-arrow svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Bottom Spec Plate Footer */
+        .chassis-footer {
+            margin-top: 1.65rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-hairline);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 0.03em;
+        }
+
+        .footer-badges {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .spec-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--accent-primary);
+            display: inline-block;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0.85rem;
+            }
+            .chassis-body {
+                padding: 1.5rem 1.25rem 1.35rem;
+            }
+            .profile-header {
+                gap: 1rem;
+            }
+            .avatar-frame {
+                width: 72px;
+                height: 72px;
+                border-radius: 18px;
+            }
+            .avatar-img {
+                border-radius: 15px;
+            }
+            .profile-name {
+                font-size: 1.4rem;
+            }
+            .bio-copy {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
-<body class="bg-blue-500 flex items-center justify-center min-h-screen p-4">
+<body>
+    <!-- Subtle SVG Film Grain Overlay for Tactile Paper Feel -->
+    <svg class="noise-overlay" aria-hidden="true">
+        <filter id="atx-grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#atx-grain)" />
+    </svg>
 
-    <!-- Main container for the bio page -->
-    <div class="bg-black bg-opacity-70 rounded-3xl shadow-xl max-w-sm w-full p-8 text-center transform transition-all duration-300 hover:scale-105">
+    <main class="bio-chassis" id="bio-container">
+        <!-- Top Retro-Tech Telemetry Strip -->
+        <header class="telemetry-bar">
+            <div class="telemetry-coords">
+                <span class="telemetry-marker" aria-hidden="true"></span>
+                <span>ATX, TX // 30.2672° N</span>
+            </div>
+            <button type="button" class="theme-switch" id="theme-toggle" aria-label="Toggle color theme">
+                <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <span id="theme-label">NIGHT DRIVE</span>
+            </button>
+        </header>
 
-        <!-- Profile Image -->
-        <div class="mb-6">
-            <!-- To use your Gravatar, replace the hash below with the MD5 hash of your email address -->
-            <img 
-                src="https://0.gravatar.com/avatar/ef48a6fb75f05aeb8b3b414408a5cde7c616324c2dcf5b2f2b37e2cb375dd282?s=256" 
-                alt="Profile Avatar" 
-                class="w-32 h-32 mx-auto rounded-full object-cover border-4 border-fuchsia-500 shadow-lg shadow-fuchsia-500"
-                onerror="this.onerror=null;this.src='https://placehold.co/150x150/f0f0f0/cccccc?text=Avatar';"
-            >
+        <div class="chassis-body">
+            <!-- Profile Identity -->
+            <section class="profile-header" aria-label="Profile Summary">
+                <div class="avatar-frame">
+                    <img 
+                        id="profile-avatar"
+                        src="https://0.gravatar.com/avatar/ef48a6fb75f05aeb8b3b414408a5cde7c616324c2dcf5b2f2b37e2cb375dd282?s=256" 
+                        alt="Michael Gnagy" 
+                        class="avatar-img"
+                        onerror="this.onerror=null;this.src='apple-touch-icon.png';"
+                    >
+                </div>
+                <div class="profile-titles">
+                    <h1 class="profile-name">Michael Gnagy</h1>
+                    <div class="profile-handle-row">
+                        <span class="profile-handle">@mikegofficial</span>
+                        <span class="profile-role-tag">GOOGLE PM</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bio Card with Interactive Micro-Notes -->
+            <section class="bio-box" aria-label="About Michael">
+                <p id="bio-text" class="bio-copy">
+                    My journey to becoming a <span class="bio-token" data-note="Building products at Google in Austin, TX">Product Manager at Google</span> in Austin, TX, began with <span class="bio-token" data-note="Bootstrapped from scratch → acquired by Google in 2019">bootstrapping my own company</span>, which was acquired by Google in 2019. Now, when I'm not building products, you can find me on the <span class="bio-token" data-note="Kitchen line dinks & DUPR matches">pickleball court</span>, <span class="bio-token" data-note="Flying above the water on Lake Travis">efoiling on Lake Travis</span>, putzing around in my <span class="bio-token" data-note="Syncro 4WD · Factory lifted Mk2 classic">1992 golf country</span> or spending quality time with my wife and our dog, <span class="bio-token" data-note="Chief morale officer & good dog">Jellybones</span>.
+                </p>
+                <div class="field-readout" aria-live="polite">
+                    <span id="readout-text">SPEC: MK2 SYNCRO // LAKE TRAVIS // ATX</span>
+                    <span>[04 LINKS]</span>
+                </div>
+            </section>
+
+            <!-- Directory Links -->
+            <div class="section-label">
+                <span>Directory</span>
+                <span>External ↗</span>
+            </div>
+
+            <nav class="links-list" aria-label="Social and profile links">
+                <!-- Link 1: LinkedIn -->
+                <a id="link-linkedin" href="https://linkedin.com/in/mikegofficial" data-channel="linkedin" class="link-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-card-left">
+                        <div class="link-icon-box" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </div>
+                        <div class="link-meta">
+                            <span class="link-title">LinkedIn</span>
+                            <span class="link-subtitle">Product leadership, founder journey &amp; network</span>
+                        </div>
+                    </div>
+                    <span class="link-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- Link 2: Last.fm -->
+                <a id="link-lastfm" href="https://www.last.fm/user/mikegofficial/listening-report" data-channel="lastfm" class="link-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-card-left">
+                        <div class="link-icon-box" aria-hidden="true">
+                            <!-- Custom Vinyl / Audio Scrobble Icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <circle cx="12" cy="12" r="2.5"></circle>
+                                <path d="M14.5 9.5c1.2 1.2 1.2 3.8 0 5"></path>
+                                <path d="M16.8 7.2c2.5 2.5 2.5 7.1 0 9.6"></path>
+                            </svg>
+                        </div>
+                        <div class="link-meta">
+                            <span class="link-title">Last.fm</span>
+                            <span class="link-subtitle">Listening report, scrobbles &amp; heavy rotation</span>
+                        </div>
+                    </div>
+                    <span class="link-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- Link 3: Reddit -->
+                <a id="link-reddit" href="https://reddit.com/mikeg-official" data-channel="reddit" class="link-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-card-left">
+                        <div class="link-icon-box" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="13" r="7"></circle>
+                                <circle cx="9.5" cy="12" r="1" fill="currentColor"></circle>
+                                <circle cx="14.5" cy="12" r="1" fill="currentColor"></circle>
+                                <path d="M9.5 15.5c1.3 1 3.7 1 5 0"></path>
+                                <path d="M12 6l2-3 3 1"></path>
+                                <circle cx="18" cy="4" r="1.2"></circle>
+                                <path d="M5 11.5a2 2 0 1 0 0 3"></path>
+                                <path d="M19 11.5a2 2 0 1 1 0 3"></path>
+                            </svg>
+                        </div>
+                        <div class="link-meta">
+                            <span class="link-title">Reddit</span>
+                            <span class="link-subtitle">Community threads, projects &amp; rabbit holes</span>
+                        </div>
+                    </div>
+                    <span class="link-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </span>
+                </a>
+
+                <!-- Link 4: DUPR -->
+                <a id="link-dupr" href="https://dashboard.dupr.com/dashboard/player/4488319430/profile" data-channel="dupr" class="link-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-card-left">
+                        <div class="link-icon-box" aria-hidden="true">
+                            <!-- Custom Pickleball Paddle & Perforated Ball Icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="3" width="12" height="13" rx="5"></rect>
+                                <path d="M10 16v5"></path>
+                                <path d="M8.5 21h3"></path>
+                                <circle cx="18.5" cy="16.5" r="3"></circle>
+                                <circle cx="18.5" cy="16.5" r="0.5" fill="currentColor"></circle>
+                            </svg>
+                        </div>
+                        <div class="link-meta">
+                            <span class="link-title">DUPR</span>
+                            <span class="link-subtitle">Pickleball player rating &amp; match history</span>
+                        </div>
+                    </div>
+                    <span class="link-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </span>
+                </a>
+            </nav>
+
+            <!-- Footer Spec Bar -->
+            <footer class="chassis-footer">
+                <div class="footer-badges">
+                    <span class="spec-dot" aria-hidden="true"></span>
+                    <span>mikegofficial.xyz</span>
+                </div>
+                <span>MADE IN AUSTIN, TX</span>
+            </footer>
         </div>
+    </main>
 
-        <!-- Name and Bio -->
-        <h1 class="text-3xl font-bold text-cyan-400 mb-0">Michael Gnagy</h1>
-        <p class="text-xs text-gray-400 mb-4">mikegofficial</p>
-        <p id="bio-text" class="text-fuchsia-400 mb-8">
-            My journey to becoming a Product Manager at Google in Austin, TX, began with bootstrapping my own company, which was acquired by Google in 2019. Now, when I'm not building products, you can find me on the pickleball court, efoiling on Lake Travis, putzing around in my 1992 golf country or spending quality time with my wife and our dog, Jellybones.
-        </p>
+    <script>
+        (function () {
+            const root = document.documentElement;
+            const toggleBtn = document.getElementById('theme-toggle');
+            const themeLabel = document.getElementById('theme-label');
+            const readoutText = document.getElementById('readout-text');
+            const defaultReadout = 'SPEC: MK2 SYNCRO // LAKE TRAVIS // ATX';
 
-        <!-- Social Media/Link Buttons -->
-        <div class="space-y-4">
-            <!-- Link 1 -->
-            <a href="https://linkedin.com/in/mikegofficial" class="block w-full text-black font-semibold py-3 px-6 rounded-full shadow-md transition-transform transform hover:scale-105 bg-white border-2 border-black hover:bg-gray-100">
-                LinkedIn
-            </a>
-            <!-- Link 2 -->
-            <a href="https://www.last.fm/user/mikegofficial/listening-report" class="block w-full text-black font-semibold py-3 px-6 rounded-full shadow-md transition-transform transform hover:scale-105 bg-white border-2 border-black hover:bg-gray-100">
-                Last.fm
-            </a>
-            <!-- Link 3 -->
-            <a href="https://reddit.com/mikeg-official" class="block w-full text-black font-semibold py-3 px-6 rounded-full shadow-md transition-transform transform hover:scale-105 bg-white border-2 border-black hover:bg-gray-100">
-                Reddit
-            </a>
-            <!-- Link 4 -->
-            <a href="https://dashboard.dupr.com/dashboard/player/4488319430/profile" class="block w-full text-black font-semibold py-3 px-6 rounded-full shadow-md transition-transform transform hover:scale-105 bg-white border-2 border-black hover:bg-gray-100">
-                DUPR
-            </a>
-        </div>
-    </div>
+            // Respect saved preference or system dark mode preference
+            const savedTheme = localStorage.getItem('mkg-theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+            function applyTheme(theme) {
+                root.setAttribute('data-theme', theme);
+                themeLabel.textContent = theme === 'dark' ? 'DAYLIGHT' : 'NIGHT DRIVE';
+            }
+
+            applyTheme(initialTheme);
+
+            toggleBtn.addEventListener('click', function () {
+                const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                applyTheme(nextTheme);
+                try {
+                    localStorage.setItem('mkg-theme', nextTheme);
+                } catch (e) {}
+            });
+
+            // Interactive field readout for bio highlights
+            const tokens = document.querySelectorAll('.bio-token');
+            tokens.forEach(function (token) {
+                token.addEventListener('mouseenter', function () {
+                    const note = token.getAttribute('data-note');
+                    if (note && readoutText) {
+                        readoutText.textContent = '→ ' + note.toUpperCase();
+                    }
+                });
+                token.addEventListener('mouseleave', function () {
+                    if (readoutText) {
+                        readoutText.textContent = defaultReadout;
+                    }
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
